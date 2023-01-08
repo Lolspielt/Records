@@ -15,14 +15,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        List<Person> people = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = IOHandler.read();
-        if (json != null) {
-            TypeToken<List<Person>> collectionType = new TypeToken<>() {
-            };
-            people = gson.fromJson(json, collectionType.getType());
-        }
+        List<Person> people = PersonManager.readPeople();
         int index = 0;
         do {
             index = printMenu();
@@ -34,6 +27,7 @@ public class Main {
                 case 5 -> PersonManager.printAll(people);
                 case 6 -> PersonManager.analyze(people);
             }
+            PersonManager.savePeople(people);
         }while(index != 7);
     }
 
